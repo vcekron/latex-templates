@@ -61,6 +61,23 @@
 \usetagform{bold}
 \setlist[enumerate,1]{label=\bfseries\alph*)} % Bold enumerate items
 
+%% Attempt to fix zref-abspage.sty counter error.
+\makeatletter
+% First fool perpage into thinking the counter is already defined
+\def\c@abspage{INVALID PLACEHOLDER}
+\RequirePackage{perpage}
+% Now create an alternative counter name...
+\AddAbsoluteCounter{pp@abspage}
+% And redefine the perpage macro that uses it.
+\def\theabspage{\ifx\thepage\relax
+	\noexpand\thepp@abspage
+	\else
+	\number\c@pp@abspage
+	\fi}
+% Finally, clean up the mess we did.
+\undef{\c@abspage}
+\makeatother
+
 % - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 % A N I M A T I O N S
 % - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
