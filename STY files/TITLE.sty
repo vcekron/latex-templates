@@ -1,0 +1,27 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{STY/TITLE}
+
+\usepackage{fancyhdr}
+
+\pagestyle{fancy}
+\renewcommand{\sectionmark}[1]{\markright{#1}}
+
+\newcommand{\settitle}[2]{
+	% Fancyhdr setup
+	\fancypagestyle{main}{
+		\fancyhf{} % clear all header fields
+		\renewcommand{\headrulewidth}{0pt} % Remove top horisontal bar.
+		%\fancyhead[L]{\footnotesize #2}
+		%\fancyhead[C]{\footnotesize\scshape\rightmark}
+		%\fancyhead[R]{\footnotesize Simon \textsc{Kronberg}}
+		\fancyfoot[C]{\footnotesize\thepage}
+	}
+
+	\pagestyle{main}
+
+	\begin{center}
+		\LARGE \textbf{#1}
+	\end{center}
+}
+
+\endinput

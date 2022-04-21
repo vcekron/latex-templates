@@ -1,0 +1,92 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{STY/PACKAGES}
+
+% - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+% M A N D A T O R Y
+% - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+\usepackage{iftex} % Only load packages relevant for each type of TeX flavour.
+\ifLuaTeX
+	\usepackage[tuenc,silent,no-math]{fontspec} % Additional font support in LuaLaTeX
+\fi
+\ifXeTeX
+	\usepackage[tuenc,silent,no-math]{fontspec} % Additional font support in XeLaTeX.
+\fi
+\ifPDFTeX
+	\usepackage[T1]{fontenc} % Additional font support in pdfLaTeX.
+	\usepackage[utf8]{inputenc}
+\fi
+\usepackage[margin=19mm]{geometry} % Sets the preferred geometry of the document.
+
+% - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+% E X T E N S I O N S
+% - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+\usepackage{subfiles} % Allows for sectioning e.g.\ the sections into different .tex files and selectively compile with the same preamble.
+\usepackage{grffile} % Extended file name support for graphics. Note that one may need to use {} to avoid delimiting e.g. dots. Example: \includegraphics{figures/{test.01-35.7}.jpg}.
+\usepackage{etoolbox} % Programming tools in LaTeX.
+\usepackage{graphicx, float} % Extends the graphics capabilities of LaTeX & adds float support.
+%\usepackage[export]{adjustbox} % Makes it possible to add [..,left/center/right] in figure arguments.
+\usepackage{adjustbox} % Needed for \adjincludegraphics[〈key/value pairs〉]{〈image filename〉} because LaTeX is a janky piece of shit. Also convenient due to phantom boxes and shit.
+\usepackage{wrapfig} % Adds support for wrapping figures and tables around the text.
+\usepackage{booktabs} % Adds awesome-looking tables.
+\usepackage[percent]{overpic} % Adds ability to draw TeX text above figures.
+\usepackage{pgfplots} % 3D plots.
+\usepackage{multicol} % Adds support for local multiple-row typesetting.
+\usepackage{multirow} % Adds support for multiple rows in tables.
+\usepackage{diagbox} % Adds diagonal split of Table cells.
+\usepackage{titlesec} % Adds the ability to change section titles in various ways.
+\usepackage{listings, lstautogobble} % Allows for code listings.
+\usepackage{lipsum} % to add \lipsum[x-y] whilst debugging.
+\usepackage{subcaption} % Adds ability to add subcaptions to aligned figures.
+\usepackage{xifthen} \usepackage{doi} % DOI support.
+\usepackage[backend=biber,style=phys,sorting=none,
+giveninits=true,articletitle=true,biblabel=brackets,
+eprint=true,chaptertitle=false,doi=true,url=true,isbn=true,maxbibnames=10
+]{biblatex}% Allows for more elaborate conditionals (in particular using booleans together with subfiles to selectively compile based on different versions).
+
+% - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+% F I X E S
+% - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+\usepackage[yyyymmdd]{datetime}\renewcommand{\dateseparator}{--} % Set correct \today format.
+\usepackage{tocloft} % Needed to match style for ToC.
+\usepackage[labelfont=bf]{caption} % Bold titles.
+\usepackage[perpage,marginal,symbol*,bottom]{footmisc} % Makes the footnotes not suck.
+\usepackage{enumitem} % Needed to add indentation support within enumerate environment.
+
+% - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+% M A T H   A N D   P H Y S I C S
+% - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+\usepackage{amsmath,amssymb,amsthm,mathtools} % Math stuff & fonts.
+\usepackage{mathrsfs} % Super curly \mathscr{}.
+\usepackage{amsfonts} % Jürgen's tensors using \mathbb{}.
+\usepackage{cancel} % Using \cancel{} in math mode to strike out the term.
+\usepackage{physics} % To get proper physics notation.
+\usepackage{upgreek} % To get straight Greek letters (\Uppsi).
+\usepackage{wasysym} % Fucking \astrosun, mate!
+\usepackage{relsize} % Especially useful when applying \mathlarger{} to each case in the cases environment.
+
+% - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+% M I S C
+% - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+\usepackage{color} % Useful for lots of stuff, including colouring text (shocking, I know).
+\usepackage{xcolor} % Some extra way of defining colours, I think. I forget.
+\usepackage{titletoc} % Used for splitting list of figures - see https://tex.stackexchange.com/questions/130159/splitting-list-of-figures.
+\usepackage{enumitem} % Useful for switching enumerate styles.
+
+% - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+% U S E C A S E   S P E C I F I C
+% - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+%\usepackage[a-1b]{pdfx} % Generates PDF/A document - see https://www.mathstat.dal.ca/~selinger/pdfa/.
+%\usepackage[controls={play,stop},nomouse]{animate} % Create animations from static frames.
+%\usepackage{ctable} % Provides footnote support in table environment (see https://tex.stackexchange.com/questions/51793/caption-and-footnote-width-with-ctable).
+%\usepackage{xpatch} % Needed for footerwidth ctable key-value.
+\usepackage{scalerel} % Used to scale the upright integral signs.
+\ifLuaTeX
+	\usepackage{shellesc} % Stop external error from TikZ and LuaLaTeX.
+\fi
+
+\usepackage{siunitx} % \micro for micro metre and the like. DOES THIS WORK????
+%\usepackage{hyperref} % Adds links to sources as well as outgoing URLs. WHY IS THIS COMMENTED OUT?!
+\usepackage{mwe} % Used for the subcaptioning like in my MSc thesis.
+\usepackage{contour}% To get the correct style for subcaptioning in my MSc thesis.
+
+\endinput

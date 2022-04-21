@@ -1,0 +1,46 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{STY/TITLEPAGE}
+
+\usepackage{fancyhdr}
+
+\pagestyle{fancy}
+\renewcommand{\sectionmark}[1]{\markright{\arabic{section}\ \ #1}}
+
+% Define the pagestyles.
+\fancypagestyle{main}{
+	\fancyhf{} % clear all header fields
+	%\renewcommand{\headrulewidth}{0pt} % Remove top horisontal bar.
+	\fancyhead[L]{\footnotesize \rightmark}
+	\fancyhead[R]{\footnotesize\thepage}
+}
+\fancypagestyle{pre}{
+	\fancyhf{} % clear all header fields
+	\renewcommand{\headrulewidth}{0pt} % Remove top horisontal bar.
+	\fancyfoot[C]{\footnotesize\thepage}
+}
+\fancypagestyle{ref}{
+	\fancyhf{} % clear all header fields
+	%\renewcommand{\headrulewidth}{0pt} % Remove top horisontal bar.
+	\fancyhead[L]{\footnotesize References}
+	\fancyhead[R]{\footnotesize\thepage}
+}
+\fancypagestyle{app}{
+	\fancyhf{} % clear all header fields
+	%\renewcommand{\headrulewidth}{0pt} % Remove top horisontal bar.
+	\fancyhead[L]{\footnotesize Appendix \ - \ \rightmark}
+	\fancyhead[R]{\footnotesize\thepage}
+}
+\fancypagestyle{appRef}{
+	\fancyhf{} % clear all header fields
+	%\renewcommand{\headrulewidth}{0pt} % Remove top horisontal bar.
+	\fancyhead[L]{\footnotesize Appendix \ - \ References}
+	\fancyhead[R]{\footnotesize\thepage}
+}
+\fancypagestyle{appLoF}{
+	\fancyhf{} % clear all header fields
+	%\renewcommand{\headrulewidth}{0pt} % Remove top horisontal bar.
+	\fancyhead[L]{\footnotesize Appendix \ - \ List of Figures}
+	\fancyhead[R]{\footnotesize\thepage}
+}
+
+\endinput

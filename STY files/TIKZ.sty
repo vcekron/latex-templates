@@ -1,0 +1,26 @@
+\ProvidesPackage{STY/TIKZ}
+
+% - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+% P A C K A G E S
+% - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.7} % Avoids errors; https://tex.stackexchange.com/questions/81899/what-does-running-in-backwards-compatibility-mode-mean-and-what-should-i-fix-t
+\usepackage{tikz-3dplot} % 3D TikZ stuff
+
+% - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+% S E T T I N G S
+% - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+\usetikzlibrary{calc} % Coordinate calculations.
+\usetikzlibrary{decorations.pathmorphing, arrows} % Squiggly lines and arrows.
+\usetikzlibrary{shapes} % Shapes for e.g. nodes.
+\usetikzlibrary{angles, quotes} % For drawing angles and ease of labelling.
+
+\tikzset{
+  arrow/.pic={\path[tips,every arrow/.try,->,>=#1] (0,0) -- +(.1pt,0);},
+  pics/arrow/.default={triangle 90}
+}
+
+\endinput

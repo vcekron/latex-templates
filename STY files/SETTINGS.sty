@@ -1,0 +1,239 @@
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{STY/SETTINGS}
+
+% - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+% M I S C
+% - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+\addbibresource{references.bib} % Adds the bibliography.
+\pgfplotsset{compat=1.16} % Set PGFPlot compatibility version for stupid reasons.
+
+% Makes links look less like ass.
+\hypersetup{
+    colorlinks,
+%    linkcolor={red!50!black},
+%    citecolor={blue!70!black},
+%    urlcolor={blue!80!black}
+    linkcolor={black},
+    citecolor={blue},
+    urlcolor={blue}
+}
+
+\renewcommand\thempfootnote{\fnsymbol{mpfootnote}} % Use the correct footnote symbols in minipage.
+
+\newenvironment{Figure} % Figure environment suitable for multicol documents.
+{\par\medskip\noindent\minipage{\linewidth}}
+{\endminipage\par\medskip}
+
+\newenvironment{Table} % Table environment suitable for multicol documents (also consider exiting the multicol temporarily for full-width tables if issues occur.
+{\par\medskip\noindent\minipage{\linewidth}}
+{\endminipage\par\medskip}
+
+%\captionsetup[table]{ % Table caption above table.
+%	position=above
+%}
+
+\def\changemargin#1#2{\list{}{\rightmargin#2\leftmargin#1}\item[]} % Defines a changemargin environment for the abstract in my MSc thesis.
+\let\endchangemargin=\endlist
+
+% - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+% F I X E S
+% - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+% Fixes for bold fontsc when compiling using LuaLaTeX or XeLaTeX.
+\ifLuaTeX
+	\setmainfont{CMU Serif}
+\fi
+\ifXeTeX
+	\setmainfont{cmun}[
+		Extension=.otf,
+		UprightFont=*rm,
+		ItalicFont=*ti,
+		BoldFont=*bx,
+		BoldItalicFont=*bi,
+	]
+\fi
+
+\DeclareUnicodeCharacter{2212}{-} % Fixes U+2212 error in inputenc.
+\SetSymbolFont{wasy}{bold}{U}{wasy}{m}{n} % Suppress peculiar \grad{} error.
+\setenumerate{listparindent=\parindent,parsep=0pt} % Adds indentation support within enumerate environment.
+\renewcommand{\qedsymbol}{$\blacksquare$} % Makes proof square solid black.
+\DeclareMathAlphabet\mathbfcal{OMS}{cmsy}{b}{n} % bold mathcal using \mathbfcal{}.
+\renewcommand{\theequation}{(\arabic{equation})} % Bold equation numbering
+\newtagform{bold}[\textbf]{}{}
+\usetagform{bold}
+\setlist[enumerate,1]{label=\bfseries\alph*)} % Bold enumerate items
+
+% - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+% A N I M A T I O N S
+% - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+%\usepackage{multido}
+%write timeline file
+%\newwrite\OutFile%
+%\immediate\openout\OutFile=timeline.txt%
+%\multido{\iFrame=0+1}{120}{%
+%	\immediate\write\OutFile{::\iFrame}%
+%}%
+%\immediate\write\OutFile{*::120}%
+%\multido{\iFrame=121+1}{380}{%
+%	\immediate\write\OutFile{::\iFrame}%
+%}%
+%\immediate\closeout\OutFile%
+
+%\usepackage[scaled=.9]{DejaVuSansMono} % textbttt{} font. Needs to be here in the preamble because reasons.
+
+% - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+% L I S T I N G S
+% - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+% Colours
+\definecolor{mygreen}{RGB}{28,172,0} % color values Red, Green, Blue
+\definecolor{mylilas}{RGB}{170,55,241}
+\definecolor{FORTpurp}{RGB}{133,103,143}
+\definecolor{FORTred}{RGB}{204,102,102}
+\definecolor{FORTcyan}{RGB}{138,190,183}
+\definecolor{FORTgreen}{RGB}{181,189,104}
+
+\newcommand{\CodeSymbol}[1]{\textcolor{FORTcyan}{#1}}
+\lstset{
+	basicstyle=\ttfamily,
+	breaklines=true,%
+	showstringspaces=false,%without this there will be a symbol in the places where there is a space
+	numbers=none,%
+	numberstyle={\tiny \color{black}},% size of the numbers
+	numbersep=3pt, % this defines how far the numbers are from the text
+	postbreak=\mbox{\textcolor{gray}{$\hookrightarrow$}\space},
+	literate = {\^^I}{{\ }}4,% Converts the tabs into 4 spaces.
+}
+
+% Defines MAT and FORT styles for code listings.
+\lstdefinestyle{MAT}
+{
+	language=MATLAB,
+	keywordstyle=\color{blue},
+	morekeywords=[2]{1}, keywordstyle=[2]{\color{black}},
+	identifierstyle=\color{black},
+	stringstyle=\color{mylilas},
+	commentstyle=\color{mygreen},
+}
+
+\lstdefinestyle{FORT}
+{
+	language=FORTRAN,
+	moredelim=*[s][\color{FORTred}]{(}{)},
+	moredelim=*[s][\color{FORTgreen}]{[}{]},
+	keywordstyle=\color{FORTpurp}\bfseries,
+	commentstyle=\color{gray},
+	literate = {\^^I}{{\ }}4
+	{\{}{{\CodeSymbol{\{}}}1
+	{\}}{{\CodeSymbol{\}}}}1
+	{>}{{\CodeSymbol{>}}}1
+	{<}{{\CodeSymbol{<}}}1
+	{>=}{{\CodeSymbol{>=}}}1
+	{<=}{{\CodeSymbol{<=}}}1
+	{=}{{\CodeSymbol{=}}}1
+	{+}{{\CodeSymbol{+}}}1
+	{*}{{\CodeSymbol{*}}}1
+	{;}{{\CodeSymbol{;}}}1
+}
+
+% Something about row-breaks, if I recall correctly.
+\makeatletter
+\patchcmd{\lsthk@SelectCharTable}{%
+\lst@ifbreaklines\lst@Def{`)}{\lst@breakProcessOther)}\fi
+}{%
+}{
+}{
+}
+\makeatother
+
+% - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+% T I T L E   F O R M A T T I N G
+% - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+\titleformat{\section}
+{\large\scshape\bfseries\center}{\arabic{section}.}{0.5em}{}
+\titleformat{\subsection}
+{\itshape\bfseries}{\arabic{section}.\arabic{subsection}.}{0.5em}{}
+\titleformat{\subsubsection}
+{\itshape\bfseries}{\arabic{section}.\arabic{subsection}.\arabic{subsubsection}.}{0.5em}{}
+
+%\renewcommand\thesection{\arabic{section}}
+%\renewcommand\thesubsection{\arabic{subsection}}
+%\renewcommand\thesubsubsection{\arabic{subsubsection}}
+%
+%\renewcommand\cftsecaftersnum{.}
+%\renewcommand\cftsubsecaftersnum{.}
+%\renewcommand\cftsubsubsecaftersnum{.}
+%
+%\renewcommand\cftsecnumwidth{2.2em}
+%\renewcommand\cftsecindent{0em}
+%\renewcommand\cftsubsecnumwidth{1.8em}
+%\renewcommand\cftsubsecindent{2.2em}
+%\renewcommand\cftsubsubsecnumwidth{1.8em}
+%\renewcommand\cftsubsubsecindent{4em}
+%\renewcommand\cftparanumwidth{2.5em}
+%\renewcommand\cftparaindent{5.8em}
+%
+%\renewcommand{\cftsecfont}{\bfseries\scshape}
+%\renewcommand{\cftsubsecfont}{\itshape}
+%\renewcommand{\cftsubsubsecfont}{\itshape}
+%\renewcommand{\cftparafont}{\itshape}
+%
+%% Add \pargraph as fourth level (think \subsubsubsection)
+%\titleformat{\paragraph}
+%{\normalfont\normalsize\bfseries\itshape}{\theparagraph.}{0.5em}{}
+%\titlespacing*{\paragraph}
+%{0pt}{3.25ex plus 1ex minus .2ex}{1.5ex plus .2ex}
+%
+%\setcounter{secnumdepth}{4}
+%\setcounter{tocdepth}{4}
+%
+%% - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+%% T O C   F O R M A T T I N G
+%% - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+%%\renewcommand{\theenumi}{\alph{enumi}}
+%\renewcommand*\contentsname{\hfill \textsc{\large{Table of Contents}} \hfill} % Changes the name of ToC.
+%\renewcommand*\listfigurename{\hfill \textsc{List of Figures} \hfill} % Changes the name of LoF.
+%\renewcommand*\listtablename{\hfill \textsc{List of Tables} \hfill} % Changes the name of LoT.
+
+% - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+% F O O T N O T E S   I N   T A B L E S
+% - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+%% Create a new key-value to ctable to control the position of the footnotes.
+%\makeatletter
+%\newdimen\@ctblfooterwidth
+%\define@key{ctbl}{footerwidth}{\@ctblfooterwidth=#1}
+%\xpatchcmd{\ctable}% <cmd>
+%  {{\@ctblbeg}}% <search>
+%  {{\ifdim\@ctblfooterwidth=0pt
+%     \@ctblfooterwidth\@ctblw% or \@ctblfloatwidth for default as width of float
+%   \fi%
+%   \@ctblbeg}}% <replace> {\@defaultctblmincapwidth%
+%  {}{}% <success><failure>
+%\xpatchcmd{\ctable}{\hsize}{\@ctblfooterwidth}{}{}% Patch \ctable
+%\xpatchcmd{\ctable}{\hsize}{\@ctblfooterwidth}{}{}% Patch \ctable
+%\makeatother
+
+% - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+% this command is invoked like the annotatedfigure ones below, i.e. inside of the annotatedfigure environment and sets the subfigure label like in my msc thesis.
+% - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+\newcommand*\subFigureLabel[2]{\node[anchor=north west, draw=white, fill=white, shape=rectangle, minimum width=8mm, minimum height=6mm, inner sep=0] at (#1) {\large \textbf{(#2)}};}
+
+% - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+% LaTeX Overlay Generator - Annotated Figures v0.0.1
+% Created with http://ff.cx/latex-overlay-generator/
+% If this generator saves you time, consider donating 5,- EUR! :-)
+% - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+%\annotatedFigureBoxCustom{bottom-left}{top-right}{label}{label-position}{box-color}{label-color}{border-color}{text-color}
+\newcommand*\annotatedFigureBoxCustom[8]{\draw[#5,thick,rounded corners,double = white,double distance = 1.1pt] (#1) rectangle (#2);\node at (#4) [fill=#6,thick,shape=circle,draw=#7,inner sep=2pt,font=\sffamily,text=#8] {\textbf{#3}};}
+\newcommand*\annotatedFigureBoxOnly[2]{\draw[black,thick,rounded corners,double = white,double distance = 1.1pt] (#1) rectangle (#2);}
+%\annotatedFigureBox{bottom-left}{top-right}{label}{label-position}
+\newcommand*\annotatedFigureBox[4]{\annotatedFigureBoxCustom{#1}{#2}{#3}{#4}{black}{white}{black}{black}}
+\newcommand*\annotatedFigureText[4]{\node[draw=none, anchor=south west, text=#2, inner sep=0, text width=#3\linewidth,font=\sffamily] at (#1){#4};}
+\newenvironment{annotatedFigure}[1]{
+	\begin{tikzpicture}
+		\node[anchor=north west,inner sep=0] (image) at (0,0) { #1};
+		\begin{scope}[x={(image.north east)},y={(image.south west)}]}{
+		\end{scope}
+	\end{tikzpicture}
+	\vspace{-5mm}
+}
+
+\endinput
